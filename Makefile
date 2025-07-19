@@ -25,3 +25,8 @@ lint:
 lint-fix:
 	uv run ruff check task_manager --fix
 
+i18n-ru:
+	uv run manage.py makemessages -l ru
+
+i18n-compile:
+	uv run manage.py compilemessages
