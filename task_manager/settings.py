@@ -47,9 +47,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 3rd party
+    'crispy_forms',
+    'crispy_bootstrap5',
     'django_bootstrap5',
     # Local
     'task_manager',
+    'task_manager.users',
 ]
 
 MIDDLEWARE = [
@@ -102,20 +105,8 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 
-        'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 
-        'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 
-        'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 
-        'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "OPTIONS": {"min_length": 3},
     },
 ]
 
@@ -143,11 +134,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(APP_DIR, 'static')]
-STATIC_ROOT = os.path.join(APP_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUTH_USER_MODEL = 'users.CustomUser'  # users model
+
+LOGIN_REDIRECT_URL = 'home'  # users model
+LOGOUT_REDIRECT_URL = 'home'  # users model
+
+CRISPY_ALLOWED_TEMPLATE_PACK = 'bootstrap5'  # crispy_forms
+CRISPY_TEMPLATE_PACK = 'bootstrap5'  # crispy_forms

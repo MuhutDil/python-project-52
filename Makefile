@@ -30,3 +30,9 @@ i18n-ru:
 
 i18n-compile:
 	uv run manage.py compilemessages
+
+test:
+	uv run manage.py test
+
+test-users:
+	uv run manage.py test task_manager.users

@@ -1,0 +1,38 @@
+[
+    {
+        "model": "users.customuser",
+        "pk": 1,
+        "fields": {
+            "password": "password1",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "testuser100",
+            "first_name": "name10",
+            "last_name": "name11",
+            "email": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2025-05-05T11:56:46.296Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "users.customuser",
+        "pk": 2,
+        "fields": {
+            "password": "password2",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "testuser101",
+            "first_name": "name20",
+            "last_name": "name21",
+            "email": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2025-05-12T05:56:15.869Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    }
+]
