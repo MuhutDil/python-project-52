@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-22 05:30+0000\n"
+"POT-Creation-Date: 2025-07-22 11:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,7 +64,7 @@ msgid "Task manager"
 msgstr "Менеджер задач"
 
 #: task_manager/templates/_navigation.html:13
-#: task_manager/templates/users/users_list.html:5
+#: task_manager/templates/users/list.html:5
 msgid "Users"
 msgstr "Пользователи"
 
@@ -81,13 +81,13 @@ msgid "Log out"
 msgstr "Выход"
 
 #: task_manager/templates/_navigation.html:33
-#: task_manager/templates/users/users_login.html:6
-#: task_manager/templates/users/users_login.html:9
+#: task_manager/templates/users/login.html:6
+#: task_manager/templates/users/login.html:9
 msgid "Log in"
 msgstr "Вход"
 
 #: task_manager/templates/_navigation.html:36
-#: task_manager/templates/users/users_signup.html:6
+#: task_manager/templates/users/signup.html:6
 msgid "Sign up"
 msgstr "Регистрация"
 
@@ -117,29 +117,29 @@ msgid "Delete status"
 msgstr "Удаление статуса"
 
 #: task_manager/templates/statuses/delete.html:6
-#: task_manager/templates/users/users_delete.html:6
+#: task_manager/templates/users/delete.html:6
 msgid "Are you sure you want to delete"
 msgstr "Вы уверены, что хотите удалить"
 
 #: task_manager/templates/statuses/delete.html:10
-#: task_manager/templates/users/users_delete.html:10
+#: task_manager/templates/users/delete.html:10
 msgid "Yes, delete"
 msgstr "Да, удалить"
 
 #: task_manager/templates/statuses/list.html:13
-#: task_manager/templates/users/users_list.html:12
+#: task_manager/templates/users/list.html:12
 msgid "Date of creation"
 msgstr "Дата создания"
 
 #: task_manager/templates/statuses/list.html:23
 #: task_manager/templates/statuses/update.html:11
-#: task_manager/templates/users/users_list.html:23
-#: task_manager/templates/users/users_update.html:11
+#: task_manager/templates/users/list.html:23
+#: task_manager/templates/users/update.html:11
 msgid "Update"
 msgstr "Изменить"
 
 #: task_manager/templates/statuses/list.html:25
-#: task_manager/templates/users/users_list.html:25
+#: task_manager/templates/users/list.html:25
 msgid "Delete"
 msgstr "Удалить"
 
@@ -147,23 +147,23 @@ msgstr "Удалить"
 msgid "Change status"
 msgstr "Изменение статуса"
 
-#: task_manager/templates/users/users_delete.html:5
+#: task_manager/templates/users/delete.html:5
 msgid "Deleting user"
 msgstr "Удаление пользователя"
 
-#: task_manager/templates/users/users_list.html:10
+#: task_manager/templates/users/list.html:10
 msgid "Username"
 msgstr "Имя пользователя"
 
-#: task_manager/templates/users/users_list.html:11
+#: task_manager/templates/users/list.html:11
 msgid "Full name"
 msgstr "Полное имя"
 
-#: task_manager/templates/users/users_signup.html:9
+#: task_manager/templates/users/signup.html:9
 msgid "Register"
 msgstr "Зарегистрировать"
 
-#: task_manager/templates/users/users_update.html:7
+#: task_manager/templates/users/update.html:7
 msgid "Update user data"
 msgstr "Изменение пользователя"
 
@@ -175,19 +175,19 @@ msgstr "Имя"
 msgid "Last name"
 msgstr "Фамилия"
 
-#: task_manager/users/views.py:26
+#: task_manager/users/views.py:38
 msgid "User registered successfully."
 msgstr "Пользователь успешно зарегистрирован."
 
-#: task_manager/users/views.py:36
+#: task_manager/users/views.py:48
 msgid "You are logged in."
 msgstr "Вы залогинены."
 
-#: task_manager/users/views.py:43
+#: task_manager/users/views.py:55
 msgid "You are logged out."
 msgstr "Вы разлогинены."
 
-#: task_manager/users/views.py:62
+#: task_manager/users/views.py:69
 msgid "User successfully updated."
 msgstr "Пользователь успешно изменен."
 
@@ -195,6 +195,6 @@ msgstr "Пользователь успешно изменен."
 msgid "User successfully deleted."
 msgstr "Пользователь успешно удален."
 
-#: task_manager/users/views.py:79
+#: task_manager/users/views.py:76
 msgid "Cannot delete user because it is in use."
 msgstr "Невозможно удалить пользователя, потому что он используется."

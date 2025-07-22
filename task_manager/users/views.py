@@ -73,7 +73,7 @@ class UserDeleteView(UserBaseViewMixin, DeleteView):
     context_object_name = "user"
     template_name = "users/delete.html"
     success_message = _("User successfully deleted.")
-    error_message = _("Cannot delete status because it is in use.")
+    error_message = _("Cannot delete user because it is in use.")
 
     def form_valid(self, form):
         try:
