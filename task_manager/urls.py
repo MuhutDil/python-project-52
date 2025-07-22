@@ -23,5 +23,6 @@ urlpatterns = [
     path('', IndexView.as_view(), name='home'),
     path("", include("task_manager.users.auth_urls")),
     path("users/", include("task_manager.users.urls")),
+    path("statuses/", include("task_manager.statuses.urls")),
     path('admin/', admin.site.urls),
 ]

@@ -1,0 +1,56 @@
+from django.contrib import messages
+from django.db.models.deletion import ProtectedError
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.utils.translation import gettext as _
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+
+from task_manager.custom_mixins import CustomLoginRequiredMixin
+
+from .forms import StatusChangeForm, StatusCreationForm
+from .models import Status
+
+
+class StatusBaseView(CustomLoginRequiredMixin):
+    model = Status
+    context_object_name = "status"
+    success_url = reverse_lazy("statuses_list")
+    success_message = ''
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, _(self.success_message))
+        return response
+
+
+class StatusListView(StatusBaseView, ListView):
+    template_name = "statuses/list.html"
+    context_object_name = "statuses"
+    ordering = ["id"]
+
+
+class StatusCreateView(StatusBaseView, CreateView):
+    form_class = StatusCreationForm
+    template_name = "statuses/create.html"
+    success_message = _("Status successfully created.")
+
+
+class StatusUpdateView(StatusBaseView, UpdateView):
+    form_class = StatusChangeForm
+    template_name = "statuses/update.html"
+    success_message = _("Status successfully updated.")
+
+
+class StatusDeleteView(StatusBaseView, DeleteView):
+    template_name = "statuses/delete.html"
+    success_message = _("Status successfully deleted.")
+    error_message = _("Cannot delete status because it is in use.")
+
+    def form_valid(self, form):
+        try:
+            return super().form_valid(form)
+        except ProtectedError:
+            messages.error(
+                self.request, self.error_message
+            )
+            return redirect(reverse_lazy("statuses_list"))

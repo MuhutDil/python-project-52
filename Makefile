@@ -19,6 +19,8 @@ start:
 render-start:
 	gunicorn task_manager.wsgi
 
+check: lint test
+
 lint:
 	uv run ruff check task_manager
 
@@ -36,3 +38,6 @@ test:
 
 test-users:
 	uv run manage.py test task_manager.users
+
+test-statuses:
+	uv run manage.py test task_manager.statuses
