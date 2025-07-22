@@ -16,10 +16,22 @@ from .forms import (
 from .models import CustomUser
 
 
+class UserBaseViewMixin(CustomUserPassesTestMixin):
+    model = CustomUser
+    context_object_name = "user"
+    success_url = reverse_lazy("users_list")
+    success_message = ''
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, _(self.success_message))
+        return response
+
+
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy("login")
-    template_name = "users/users_signup.html"
+    template_name = "users/signup.html"
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -28,7 +40,7 @@ class SignUpView(CreateView):
 
 
 class UserLoginView(LoginView):
-    template_name = "users/users_login.html"
+    template_name = "users/login.html"
     form_class = CustomUserLoginForm
 
     def form_valid(self, form):
@@ -46,36 +58,28 @@ class UserLogoutView(LogoutView):
 
 class UserListView(ListView):
     model = CustomUser
-    template_name = "users/users_list.html"
+    template_name = "users/list.html"
     context_object_name = "users"
     ordering = ["id"]
 
 
-class UserUpdateView(CustomUserPassesTestMixin, UpdateView):
-    model = CustomUser
+class UserUpdateView(UserBaseViewMixin, UpdateView):
     form_class = CustomUserUpdateForm
-    template_name = "users/users_update.html"
-    success_url = reverse_lazy("users_list")
-
-    def form_valid(self, form):
-        response = super().form_valid(form)
-        messages.success(self.request, _("User successfully updated."))
-        return response
+    template_name = "users/update.html"
+    success_message = _("User successfully updated.")
 
 
-class UserDeleteView(CustomUserPassesTestMixin, DeleteView):
-    model = CustomUser
+class UserDeleteView(UserBaseViewMixin, DeleteView):
     context_object_name = "user"
-    template_name = "users/users_delete.html"
-    success_url = reverse_lazy("users_list")
+    template_name = "users/delete.html"
+    success_message = _("User successfully deleted.")
+    error_message = _("Cannot delete status because it is in use.")
 
     def form_valid(self, form):
         try:
-            response = super().form_valid(form)
-            messages.success(self.request, _("User successfully deleted."))
-            return response
+            return super().form_valid(form)
         except ProtectedError:
             messages.error(
-                self.request, _("Cannot delete user because it is in use.")
+                self.request, self.error_message
             )
-            return redirect(reverse_lazy("users_list"))
+            return redirect(self.success_url)

@@ -1,3 +1,4 @@
+from django.contrib.messages import get_messages
 from django.test import TestCase
 from django.urls import reverse
 
@@ -33,11 +34,14 @@ class CustomUserTest(TestCase):
     def test_user_create(self):
         create_url = reverse("users_create")
         login_url = reverse("login")
+        flash_message = "User registered successfully."
 
         # post user data with redirect on login page
         response = self.client.get(create_url)
         self.assertEqual(response.status_code, 200)
         response = self.client.post(create_url, self.user_data)
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(str(messages[0]), flash_message)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, login_url)
 
@@ -51,6 +55,7 @@ class CustomUserTest(TestCase):
         update_url = reverse("users_update", kwargs={"pk": self.user.id})
         old_name = self.user.username
         new_name = "new_name"
+        flash_message = "User successfully updated."
 
         # post updated data
         response = self.client.get(update_url)
@@ -58,6 +63,8 @@ class CustomUserTest(TestCase):
         updated_data = self.user_data.copy()
         updated_data["username"] = new_name
         response = self.client.post(update_url, updated_data)
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(str(messages[0]), flash_message)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, self.list_url)
 
@@ -69,6 +76,7 @@ class CustomUserTest(TestCase):
     def test_user_delete(self):
         delete_url = reverse("users_delete", kwargs={"pk": self.user.id})
         username = self.user.username
+        flash_message = "User successfully deleted."
 
         # get delete page
         response = self.client.get(delete_url)
@@ -76,6 +84,8 @@ class CustomUserTest(TestCase):
 
         # post delete page
         response = self.client.post(delete_url)
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(str(messages[0]), flash_message)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, self.list_url)
 

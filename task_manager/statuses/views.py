@@ -11,7 +11,7 @@ from .forms import StatusChangeForm, StatusCreationForm
 from .models import Status
 
 
-class StatusBaseView(CustomLoginRequiredMixin):
+class StatusBaseViewMixin(CustomLoginRequiredMixin):
     model = Status
     context_object_name = "status"
     success_url = reverse_lazy("statuses_list")
@@ -23,25 +23,25 @@ class StatusBaseView(CustomLoginRequiredMixin):
         return response
 
 
-class StatusListView(StatusBaseView, ListView):
+class StatusListView(StatusBaseViewMixin, ListView):
     template_name = "statuses/list.html"
     context_object_name = "statuses"
     ordering = ["id"]
 
 
-class StatusCreateView(StatusBaseView, CreateView):
+class StatusCreateView(StatusBaseViewMixin, CreateView):
     form_class = StatusCreationForm
     template_name = "statuses/create.html"
     success_message = _("Status successfully created.")
 
 
-class StatusUpdateView(StatusBaseView, UpdateView):
+class StatusUpdateView(StatusBaseViewMixin, UpdateView):
     form_class = StatusChangeForm
     template_name = "statuses/update.html"
     success_message = _("Status successfully updated.")
 
 
-class StatusDeleteView(StatusBaseView, DeleteView):
+class StatusDeleteView(StatusBaseViewMixin, DeleteView):
     template_name = "statuses/delete.html"
     success_message = _("Status successfully deleted.")
     error_message = _("Cannot delete status because it is in use.")
@@ -53,4 +53,4 @@ class StatusDeleteView(StatusBaseView, DeleteView):
             messages.error(
                 self.request, self.error_message
             )
-            return redirect(reverse_lazy("statuses_list"))
+            return redirect(self.success_url)
