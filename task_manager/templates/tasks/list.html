@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<h1>{% trans "Tasks" %}</h1>
+
+<a class="btn btn-primary" href="{% url 'tasks_create' %}">{% trans "Create task" %}</a>
+
+<div class="bg-light p-2 rounded">
+<form method="get">
+  {{ filter.form|crispy }}
+  <button class="btn btn-primary" type="submit">{% trans "Show" %}</button>
+</form>
+</div>
+
+
+<table class="table table-striped">
+  <tr>
+    <th scope="col">ID</th>
+    <th scope="col">{% trans "Name" %}</th>
+    <th scope="col">{% trans "Status" %}</th>
+    <th scope="col">{% trans "Author" %}</th>
+    <th scope="col">{% trans "Executor" %}</th>
+    <th scope="col">{% trans "Date of creation" %}</th>
+    <th scope="col"></th>
+  </tr>
+  <tbody>
+    {% for task in tasks %}
+    <tr>
+      <td>{{ task.id }}</td>
+      <td><a href="{% url 'tasks_detail' task.id %}">{{ task.name }}</a></td>
+      <td>{{ task.status }}</td>
+      <td>{{ task.author }}</td>
+      <td>{{ task.executor }}</td>
+      <td>{{ task.date_creation|date:"d.m.Y H:i" }}</td>
+      <td>
+        <a href="{% url 'tasks_update' task.id %}">{% trans "Update" %}</a>
+        <br>
+        <a href="{% url 'tasks_delete' task.id %}">{% trans "Delete" %}</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

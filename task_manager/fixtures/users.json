@@ -12,7 +12,7 @@
             "email": "",
             "is_staff": false,
             "is_active": true,
-            "date_joined": "2025-05-05T11:56:46.296Z",
+            "date_joined": "2025-06-05T11:56:46.296Z",
             "groups": [],
             "user_permissions": []
         }
@@ -30,7 +30,7 @@
             "email": "",
             "is_staff": false,
             "is_active": true,
-            "date_joined": "2025-05-12T05:56:15.869Z",
+            "date_joined": "2025-06-12T05:56:15.869Z",
             "groups": [],
             "user_permissions": []
         }

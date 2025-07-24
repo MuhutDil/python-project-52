@@ -41,3 +41,9 @@ test-users:
 
 test-statuses:
 	uv run manage.py test task_manager.statuses
+
+test-tasks:
+	uv run manage.py test task_manager.tasks
+
+test-labels:
+	uv run manage.py test task_manager.labels

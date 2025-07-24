@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.db.models.deletion import ProtectedError
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 from task_manager.custom_mixins import CustomLoginRequiredMixin
@@ -19,7 +19,7 @@ class StatusBaseViewMixin(CustomLoginRequiredMixin):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        messages.success(self.request, _(self.success_message))
+        messages.success(self.request, self.success_message)
         return response
 
 
@@ -54,3 +54,4 @@ class StatusDeleteView(StatusBaseViewMixin, DeleteView):
                 self.request, self.error_message
             )
             return redirect(self.success_url)
+            

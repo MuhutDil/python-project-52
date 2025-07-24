@@ -3,7 +3,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.db.models.deletion import ProtectedError
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 from task_manager.custom_mixins import CustomUserPassesTestMixin
@@ -21,10 +21,18 @@ class UserBaseViewMixin(CustomUserPassesTestMixin):
     context_object_name = "user"
     success_url = reverse_lazy("users_list")
     success_message = ''
+    error_permission_message = (
+        _("You do not have permission to modify another user.")
+    )
+    error_redirect = reverse_lazy("users_list")
+    
+    def test_func(self):
+        profile = self.get_object()
+        return profile == self.request.user
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        messages.success(self.request, _(self.success_message))
+        messages.success(self.request, self.success_message)
         return response
 
 
@@ -70,7 +78,6 @@ class UserUpdateView(UserBaseViewMixin, UpdateView):
 
 
 class UserDeleteView(UserBaseViewMixin, DeleteView):
-    context_object_name = "user"
     template_name = "users/delete.html"
     success_message = _("User successfully deleted.")
     error_message = _("Cannot delete user because it is in use.")

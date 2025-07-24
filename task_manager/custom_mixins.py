@@ -2,31 +2,32 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
+
+user_anonymous_message = _("You are not logged in! Please log in.")
 
 
 class CustomLoginRequiredMixin(LoginRequiredMixin):
     def handle_no_permission(self):
-        messages.error(self.request, _("You are not logged in! Please log in."))
+        messages.error(self.request, user_anonymous_message)
         return redirect(reverse_lazy("login"))
 
 
 class CustomUserPassesTestMixin(UserPassesTestMixin):
-    def test_func(self):
-        profile = self.get_object()
-        return profile == self.request.user
+    error_anonymous_message = user_anonymous_message
+    error_permission_message = ''
+    error_redirect = reverse_lazy("home")
 
     def handle_no_permission(self):
         if self.request.user.is_anonymous:
             messages.error(
-                self.request, _("You are not logged in! Please log in.")
+                self.request, self.error_anonymous_message
             )
             return redirect(reverse_lazy("login"))
         messages.error(
-            self.request,
-            _("You do not have permission to modify another user."),
+            self.request, self.error_permission_message
         )
-        return redirect(reverse_lazy("users_list"))
+        return redirect(self.error_redirect)
 
 
 class PlaceholderMixin:

@@ -18,10 +18,10 @@
               <a class="nav-link" href="{% url 'statuses_list' %}">{% trans "Statuses" %}</a>
             </li>
             <li class="nav-item">
-                {% trans "Labels" %}
+              <a class="nav-link" href="{% url 'labels_list' %}">{% trans "Labels" %}</a>
             </li>
             <li class="nav-item">
-                {% trans "Tasks" %}
+              <a class="nav-link" href="{% url 'tasks_list' %}">{% trans "Tasks" %}</a>
             </li>
               <form action="{% url 'logout' %}" method="post">
                 {% csrf_token %}
