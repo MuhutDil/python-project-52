@@ -68,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 ]
 
 ROOT_URLCONF = 'task_manager.urls'
@@ -153,3 +154,12 @@ LOGOUT_REDIRECT_URL = 'home'  # users model
 
 CRISPY_ALLOWED_TEMPLATE_PACK = 'bootstrap5'  # crispy_forms
 CRISPY_TEMPLATE_PACK = 'bootstrap5'  # crispy_forms
+
+ROLLBAR_TOKEN = os.getenv('ROLLBAR_TOKEN') # rollbar
+
+ROLLBAR = { # rollbar
+    'access_token': ROLLBAR_TOKEN,
+    'environment': 'production',
+    'code_version': '1.0',
+    'root': BASE_DIR,
+}
